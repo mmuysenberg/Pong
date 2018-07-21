@@ -113,16 +113,23 @@ implements GameNet_UserInterface
 
 			Point bur = boardDimensions.toPixels(box.boxUpperRight);
 			Point bul = boardDimensions.toPixels(box.boxUpperLeft);
+
 			Point blr = boardDimensions.toPixels(box.boxLowerRight);
 			Point bll = boardDimensions.toPixels(box.boxLowerLeft);
 			Point hu  = boardDimensions.toPixels(box.rightHoleUpper);
 			Point hl  = boardDimensions.toPixels(box.rightHoleLower);
 
+			Point lefthu = boardDimensions.toPixels(box.leftHoleUpper);
+			Point lefthl = boardDimensions.toPixels(box.leftHoleLower);
+
 			g.drawLine(bll.x, bll.y, blr.x, blr.y); // lower line
-			g.drawLine(bll.x, bll.y, bul.x, bul.y); // left side
 			g.drawLine(bul.x,bul.y, bur.x, bur.y);  // top side
 			g.drawLine(bur.x, bur.y, hu.x, hu.y);   // above hole on right
 			g.drawLine(blr.x, blr.y, hl.x, hl.y);   // below hole on right
+
+			g.drawLine(bul.x, bul.y, lefthu.x, lefthu.y); // above hole on left
+			g.drawLine(bll.x, bll.y, lefthl.x, lefthl.y);   // below hole on right
+
 
 			Point pball = boardDimensions.toPixels(box.ballLoc);
 			int r = boardDimensions.toPixels(box.ballRadius);
