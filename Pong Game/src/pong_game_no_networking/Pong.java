@@ -6,10 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 
-public class Pong implements ActionListener, Runnable {
+public class Pong implements ActionListener, Runnable, MouseMotionListener {
 
     public static Pong pong;
     int width =1000, height = 600;
@@ -18,15 +19,17 @@ public class Pong implements ActionListener, Runnable {
     public Paddle player1;
     public Paddle player2;
     public Puck puck;
+    final int initVelocity = 9;
 
     public Pong() {
 
 	JFrame jframe = new JFrame("My Pong Game");
 	renderer = new Renderer();
+	renderer.addMouseMotionListener(this);
 
 	jframe.setSize(width + 15, height);
 	jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	jframe.add(renderer);	
+	jframe.add(renderer);
 
 	start();
 	jframe.setVisible(true);
@@ -38,7 +41,7 @@ public class Pong implements ActionListener, Runnable {
     public void start() {
 	player1 = new Paddle(this,1);
 	player2 = new Paddle(this,2);
-	puck = new Puck(this, 30, 8);
+	puck = new Puck(this, 30, initVelocity);
     }
 
     public void render(Graphics g) {
@@ -52,12 +55,12 @@ public class Pong implements ActionListener, Runnable {
     }
 
     void update() {
+	boolean playerHit = false;
 	// normal x behavior
 	if(puck.x + puck.size <= 0) {
 	    puck.xVelocity = Math.abs(puck.xVelocity);
 	} else if(puck.x + puck.size >= width) {
 	    puck.xVelocity = -puck.xVelocity;
-	    System.out.println("hit puck.x >= width");
 	}
 
 	// normal y behavior
@@ -67,8 +70,32 @@ public class Pong implements ActionListener, Runnable {
 	    puck.yVelocity = -puck.yVelocity;
 	}
 
-        puck.y += puck.yVelocity;
-        puck.x += puck.xVelocity;
+        
+        // normal paddle behavior
+        
+	// left side player
+        if(puck.x <= player1.x) {
+            if(puck.y >= player1.y && puck.y <= player1.y + player1.height - 1) {
+        	puck.xVelocity = Math.abs(puck.xVelocity); // make it go faster for a second
+        	playerHit = true;
+            } else {
+        	System.out.println("In the hole");
+            }
+        }
+        // right side player
+        if(puck.x >= player2.x - player2.width) {
+            if(puck.y >= player2.y && puck.y <= player2.y + player2.height - 1) {
+        	puck.xVelocity = puck.xVelocity; 
+        	playerHit = true;
+            }
+        }
+        if (playerHit) {
+            puck.y += puck.yVelocity*2; // make it go faster
+            puck.x += puck.xVelocity;
+        } else {
+            puck.y += puck.yVelocity;
+            puck.x += puck.xVelocity;
+        }
     }
     @Override
     public void actionPerformed(ActionEvent arg0) {
@@ -95,6 +122,16 @@ public class Pong implements ActionListener, Runnable {
 	}
 	// TODO Auto-generated method stub
 	
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {}
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+	int mouseY = e.getY();
+	int mouseX = e.getX();
+	player1.y = mouseY - player1.height/2;
     }
 
 
