@@ -30,7 +30,7 @@ public class Box implements Serializable{
     private int ballVx, ballVy;
     private Random rand = new Random();
 
-    int successCount=0;
+    int[] successCount= new int[2];
     private boolean running=false;
     
     public boolean isRunning()
@@ -83,11 +83,6 @@ public class Box implements Serializable{
     public void setPaddleY(int yLoc, int clientIndex)
     {
         paddleLoc[clientIndex].y =yLoc;
-        if (paddleLoc[clientIndex].y - paddleWidth/2 < rightHoleUpper.y)
-            paddleLoc[clientIndex].y = rightHoleUpper.y + paddleWidth/2;
-        if (paddleLoc[clientIndex].y + paddleWidth/2 > rightHoleLower.y)
-            paddleLoc[clientIndex].y = rightHoleLower.y - paddleWidth/2;
-
     }
 
     public void update()
@@ -97,44 +92,30 @@ public class Box implements Serializable{
         ballLoc.x = ballLoc.x + ballVx;
         ballLoc.y = ballLoc.y + ballVy;
 
-        // check against right wall
-        if (ballLoc.x + ballRadius > boxUpperRight.x)
+        // right paddle
+        if (ballLoc.x + ballRadius >= boxUpperRight.x) // if ball x is >= right x
         {
-            if (ballLoc.y <= rightHoleUpper.y || ballLoc.y >= rightHoleLower.y )
-            {
-            	// hits wall
-                ballVx *= -1;
-                ballLoc.x = boxUpperRight.x - ballRadius;
-            }
-            else if (ballLoc.y >= paddleLoc[0].y-paddleWidth/2 &&
+            if (ballLoc.y >= paddleLoc[0].y-paddleWidth/2 && // if ball y is paddle yish
                     ballLoc.y <= paddleLoc[0].y + paddleWidth/2)
             {
-                successCount +=1;  // In hole but bounces off right paddle
+        	successCount[0]++;
                 ballVx *= -1;
                 ballLoc.x = boxUpperRight.x - ballRadius;
                 System.out.println("In Hole and hits paddle");
-            }
-            else
-            {
-                // In hole and missed by paddle
+            } else { // created one giant hole
                 running= false;
                 System.out.println("In Hole and missed by paddle");
             }
         }
-        if (ballLoc.x + ballRadius < boxUpperLeft.x)
+        
+        if (ballLoc.x + ballRadius <= boxUpperLeft.x)
         {
-            if (ballLoc.y <= rightHoleUpper.y || ballLoc.y >= rightHoleLower.y )
+            if (ballLoc.y >= paddleLoc[1].y-paddleWidth/2 &&
+                    ballLoc.y <= paddleLoc[1].y + paddleWidth/2)
             {
-            	// hits wall
+                successCount[1]++;  // In hole but bounces off left paddle
                 ballVx *= -1;
-                ballLoc.x = boxLowerRight.x - ballRadius;
-            }
-            else if (ballLoc.y >= paddleLoc[0].y-paddleWidth/2 &&
-                    ballLoc.y <= paddleLoc[0].y + paddleWidth/2)
-            {
-                successCount +=1;  // In hole but bounces off right paddle
-                ballVx *= -1;
-                ballLoc.x = boxLowerRight.x - ballRadius;
+                ballLoc.x = boxUpperLeft.x + ballRadius;
                 System.out.println("In Hole and hits paddle");
             }
             else
@@ -145,11 +126,17 @@ public class Box implements Serializable{
             }
         }
 
-         // check against the top wall
-        if (ballLoc.y - ballRadius < boxUpperRight.y)
+         // check against the top and bottom wall
+        if (ballLoc.x - ballRadius < boxUpperRight.x || ballLoc.x - ballRadius > boxUpperLeft.x) // if ball x < right x || ball x > left x
         {
-            ballVy *= -1;
-            ballLoc.y = boxUpperRight.y + ballRadius;        
+            if(ballLoc.y >= boxLowerRight.y) { // if ball y >= bottom y
+        	ballVy *= -1;
+                ballLoc.y = boxLowerRight.y + ballRadius;     
+            } else if(ballLoc.y <= boxUpperRight.y) { // else if ball y <= top y
+        	ballVy *= -1;
+                ballLoc.y = boxUpperRight.y + ballRadius;      
+            }
+              
         }
 
     }

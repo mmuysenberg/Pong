@@ -5,6 +5,7 @@ import gameNet.GamePlayer;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
@@ -88,9 +89,9 @@ implements GameNet_UserInterface
 		}
 		Graphics g = offScreenImage.getGraphics();
 
-		g.setColor(Color.white);
+		g.setColor(Color.BLACK);
 		g.fillRect(0,0, d.width, d.height);
-		g.setColor(Color.black);
+		g.setColor(Color.WHITE);
 
 		Insets insets = getInsets();
 		int pad=10;
@@ -106,8 +107,8 @@ implements GameNet_UserInterface
 
 			if (!box.isRunning())
 			{
-				String str ="Success count="+
-						box.successCount+ " Click Mouse to restart";
+			    String success = "right player success count=" + box.successCount[0] + ", left player success count=" + box.successCount[1];
+			    String str =success + " Click Mouse to restart";
 				g.drawString(str, 100, 100);            
 			}
 
@@ -122,13 +123,13 @@ implements GameNet_UserInterface
 			Point lefthu = boardDimensions.toPixels(box.leftHoleUpper);
 			Point lefthl = boardDimensions.toPixels(box.leftHoleLower);
 
-			g.drawLine(bll.x, bll.y, blr.x, blr.y); // lower line
-			g.drawLine(bul.x,bul.y, bur.x, bur.y);  // top side
-			g.drawLine(bur.x, bur.y, hu.x, hu.y);   // above hole on right
-			g.drawLine(blr.x, blr.y, hl.x, hl.y);   // below hole on right
+//			g.drawLine(bll.x, bll.y, blr.x, blr.y); // lower line
+//			g.drawLine(bul.x,bul.y, bur.x, bur.y);  // top side
+//			g.drawLine(bur.x, bur.y, hu.x, hu.y);   // above hole on right
+//			g.drawLine(blr.x, blr.y, hl.x, hl.y);   // below hole on right
 
-			g.drawLine(bul.x, bul.y, lefthu.x, lefthu.y); // above hole on left
-			g.drawLine(bll.x, bll.y, lefthl.x, lefthl.y);   // below hole on right
+//			g.drawLine(bul.x, bul.y, lefthu.x, lefthu.y); // above hole on left
+//			g.drawLine(bll.x, bll.y, lefthl.x, lefthl.y);   // below hole on right
 
 
 			Point pball = boardDimensions.toPixels(box.ballLoc);
@@ -140,11 +141,23 @@ implements GameNet_UserInterface
 			for (int i=0; i < 2; i++)
 			{
 				Point pPaddle =boardDimensions.toPixels( box.paddleLoc[i]);
-				g.setColor(paddleColors[i]); 
-				g.drawLine(pPaddle.x, pPaddle.y-paddleWidth/2,
-						pPaddle.x, pPaddle.y+paddleWidth/2);
+				//g.setColor(paddleColors[i]); 
+				g.fillRect(pPaddle.x, pPaddle.y, 8, paddleWidth);
+				//g.drawLine(pPaddle.x, pPaddle.y-paddleWidth/2,
+					//	pPaddle.x, pPaddle.y+paddleWidth/2);
+				Font originalFont = getFont();
+				Font f = new Font(getFont().getFontName(), getFont().getStyle(), 80);
+				setFont(f);
+				if(i == 0) {
+                                    g.drawString(box.successCount[i]+"", box.boxUpperRight.x - box.boxUpperRight.x/2, box.boxLowerLeft.y / 2);
+				} else {
+				    g.drawString(box.successCount[i]+"", box.boxUpperLeft.x + box.boxUpperRight.x/4, box.boxLowerLeft.y /2);
+				}
+				setFont(originalFont);
 			}
 		}
+		
+		
 
 		theScreen.drawImage(offScreenImage, 0,0, this);
 	}    
