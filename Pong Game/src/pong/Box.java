@@ -21,7 +21,7 @@ public class Box implements Serializable {
     Point leftHoleUpper;
     Point leftHoleLower;
     int paddleHeight;
-    int angle;
+    int yAngle;
 
     Point ballLoc;
 
@@ -34,7 +34,7 @@ public class Box implements Serializable {
 
     int[] successCount = new int[2];
     private boolean running = false;
-    int whichHole;
+    int whichPaddle;
     Random randomGen = new Random();
 
     public boolean isRunning() {
@@ -47,7 +47,7 @@ public class Box implements Serializable {
 	int box_left = 0;
 	int box_right = box_width;
 	paddleHeight = 8;
-	whichHole = 0;
+	whichPaddle = 0;
 
 	boxUpperRight = new Point(box_right, box_top);
 	boxUpperLeft = new Point(box_left, box_top);
@@ -93,19 +93,14 @@ public class Box implements Serializable {
 	else
             paddleLoc[1] = new Point(box_left + 1, paddleLoc[1].y);
 
-	if (whichHole == 0) {
+	if (whichPaddle == 0) {
             ballVx = randomizer(-20, -10);
             ballLoc = new Point(paddleLoc[0].x - ballRadius, paddleLoc[0].y +paddleWidth/2);
 	} else {
             ballVx = randomizer(10, 20);
             ballLoc = new Point(paddleLoc[1].x + ballRadius + paddleHeight, paddleLoc[1].y +paddleWidth/2);
 	}
-	if(angle == -1)
-	    ballVy = -8;
-	else if(angle == 1)
-	    ballVy = 8;
-	else if(angle == 0)
-	    ballVy = 0;
+        ballVy = 0;
 	System.out.println(ballVx + " " + ballVy);
 	if (startRunning)
 	    running = true;
@@ -114,7 +109,7 @@ public class Box implements Serializable {
     public void setPaddleY(int yLoc, int clientIndex) {
 	paddleLoc[clientIndex].y = yLoc - paddleWidth/2;
 	if(running == false) {
-	    if (whichHole == 0) {
+	    if (whichPaddle == 0) {
 	            ballLoc = new Point(paddleLoc[0].x - ballRadius, paddleLoc[0].y +paddleWidth/2);
 		} else {
 	            ballLoc = new Point(paddleLoc[1].x + ballRadius + paddleHeight, paddleLoc[1].y +paddleWidth/2);
@@ -123,11 +118,11 @@ public class Box implements Serializable {
 
 	if(prevPaddleY[clientIndex] != paddleLoc[clientIndex].y) {
             if(paddleLoc[clientIndex].y + 1 < prevPaddleY[clientIndex]) {
-                angle = 1;
+                yAngle = 1;
             } else if(paddleLoc[clientIndex].y + 1 > prevPaddleY[clientIndex]) {
-                angle = -1;
+                yAngle = -1;
             } else {
-                angle = 0;
+                yAngle = 0;
             }
 	}
             System.out.println("curr pos: " + paddleLoc[clientIndex].y + "; prev pos: "  + prevPaddleY[clientIndex]); 
@@ -153,18 +148,18 @@ public class Box implements Serializable {
 	    if (ballLoc.y >= paddleLoc[0].y && // if ball y is paddle yish
 		    ballLoc.y <= paddleLoc[0].y + paddleWidth) {
 		successCount[0]++;
-		if(angle == -1)
+		if(yAngle == -1)
 		    ballVy = 16;
-		else if(angle == 1)
+		else if(yAngle == 1)
 		    ballVy = -16;
-		else if(angle == 0)
+		else if(yAngle == 0)
 		    ballVy = 0;
 		ballVx *= -1;
 		paddleHit = true;
 		System.out.println("In Hole and hits paddle");
 	    } else { // created one giant hole
 		System.out.println("In Hole and hits paddle");
-		whichHole = 0;
+		whichPaddle = 0;
 		running = false;
 		System.out.println("In Hole and missed by paddle");
 	    }
@@ -174,11 +169,11 @@ public class Box implements Serializable {
 	//if(ballLoc.x - ballRadius <= boxUpperLeft.x + paddleHeight) { // test tomorrow
 	    if (ballLoc.y >= paddleLoc[1].y && ballLoc.y <= paddleLoc[1].y + paddleWidth) {
 		successCount[1]++; // In hole but bounces off left paddle
-		if(angle == -1)
+		if(yAngle == -1)
 		    ballVy = 16;
-		else if(angle == 1)
+		else if(yAngle == 1)
 		    ballVy = -16;
-		else if(angle == 0)
+		else if(yAngle == 0)
 		    ballVy = 0;
 		ballVx *= -1;
 		System.out.println("In Hole and hits paddle");
@@ -186,7 +181,7 @@ public class Box implements Serializable {
 	    } else {
 		// In hole and missed by paddle
 //		ballLoc.x = boxUpperLeft.x + ballRadius;
-		whichHole = 1;
+		whichPaddle = 1;
 		running = false;
 		System.out.println("In Hole and missed by paddle");
 	    }
