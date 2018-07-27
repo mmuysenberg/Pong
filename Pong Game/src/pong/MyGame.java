@@ -59,7 +59,7 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         while(true)
         {
             try{
-                Thread.sleep(60);
+                Thread.sleep(30);
                 if (box.isRunning())
                 {
                 	box.update();  
