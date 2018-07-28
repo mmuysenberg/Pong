@@ -93,12 +93,12 @@ public class Box implements Serializable {
 	else
             paddleLoc[1] = new Point(box_left + 1, paddleLoc[1].y);
 
-	if (whichPaddle == 0) {
+	if (whichPaddle == 1) {
             ballVx = randomizer(-20, -10);
-            ballLoc = new Point(paddleLoc[0].x - ballRadius, paddleLoc[0].y +paddleWidth/2);
+            ballLoc = new Point(paddleLoc[1].x + ballRadius + paddleHeight, paddleLoc[1].y +paddleWidth/2);
 	} else {
             ballVx = randomizer(10, 20);
-            ballLoc = new Point(paddleLoc[1].x + ballRadius + paddleHeight, paddleLoc[1].y +paddleWidth/2);
+            ballLoc = new Point(paddleLoc[0].x - ballRadius, paddleLoc[0].y +paddleWidth/2);
 	}
         ballVy = 0;
 	System.out.println(ballVx + " " + ballVy);
