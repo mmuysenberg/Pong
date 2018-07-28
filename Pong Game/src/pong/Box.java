@@ -35,6 +35,7 @@ public class Box implements Serializable {
     int[] successCount = new int[2];
     private boolean running = false;
     int whichPaddle;
+    int paddleHitBallXSpeed;
     Random randomGen = new Random();
 
     public boolean isRunning() {
@@ -70,6 +71,7 @@ public class Box implements Serializable {
 	int box_bottom = box_height;
 	int box_left = 0;
 	int box_right = box_width;
+	paddleHitBallXSpeed = 0;
 
 	// Start the ball out at a random spot
 	// Heuristic for generating random starting velocities ... maybe not the best
@@ -147,7 +149,6 @@ public class Box implements Serializable {
 	{
 	    if (ballLoc.y >= paddleLoc[0].y && // if ball y is paddle yish
 		    ballLoc.y <= paddleLoc[0].y + paddleWidth) {
-		successCount[0]++;
 		if(yAngle == -1)
 		    ballVy = 16;
 		else if(yAngle == 1)
@@ -159,7 +160,8 @@ public class Box implements Serializable {
 		System.out.println("In Hole and hits paddle");
 	    } else { // created one giant hole
 		System.out.println("In Hole and hits paddle");
-		whichPaddle = 0;
+		successCount[1]++;
+		whichPaddle = 1;
 		running = false;
 		System.out.println("In Hole and missed by paddle");
 	    }
@@ -168,7 +170,6 @@ public class Box implements Serializable {
 	if (ballLoc.x - ballRadius < boxUpperLeft.x) {
 	//if(ballLoc.x - ballRadius <= boxUpperLeft.x + paddleHeight) { // test tomorrow
 	    if (ballLoc.y >= paddleLoc[1].y && ballLoc.y <= paddleLoc[1].y + paddleWidth) {
-		successCount[1]++; // In hole but bounces off left paddle
 		if(yAngle == -1)
 		    ballVy = 16;
 		else if(yAngle == 1)
@@ -179,9 +180,10 @@ public class Box implements Serializable {
 		System.out.println("In Hole and hits paddle");
 		paddleHit = true;
 	    } else {
+		successCount[0]++; // In hole but bounces off left paddle
 		// In hole and missed by paddle
 //		ballLoc.x = boxUpperLeft.x + ballRadius;
-		whichPaddle = 1;
+		whichPaddle = 0;
 		running = false;
 		System.out.println("In Hole and missed by paddle");
 	    }
@@ -199,7 +201,8 @@ public class Box implements Serializable {
 
 	}
 	if(paddleHit) {
-            ballLoc.x = ballLoc.x + ballVx + ballVx;
+	    paddleHitBallXSpeed += ballVx;
+            ballLoc.x = ballLoc.x + ballVx + paddleHitBallXSpeed;
             ballLoc.y = ballLoc.y + ballVy;
 	} else {
             ballLoc.x = ballLoc.x + ballVx;
