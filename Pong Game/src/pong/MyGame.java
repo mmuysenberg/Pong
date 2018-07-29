@@ -27,6 +27,10 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
     	return clients.indexOf(name);
     }
     
+    public ArrayList<String> getNames() {
+	return clients;
+    }
+    
     @Override
     public Object process(Object ob) {
         MyGameInput myGameInput = (MyGameInput)ob;
@@ -43,6 +47,7 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         	clients.remove(myGameInput.name);
         	break;
         case MyGameInput.MOUSE_PRESSED:
+        	 box.setClientNames(clients);
         	 box.setGame(true);
         	break;
         case MyGameInput.MOUSE_MOVED: 

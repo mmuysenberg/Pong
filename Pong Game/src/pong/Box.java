@@ -2,6 +2,7 @@ package pong;
 
 import java.awt.Point;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Box implements Serializable {
@@ -37,6 +38,7 @@ public class Box implements Serializable {
     int whichPaddle;
     int paddleHitBallXSpeed;
     Random randomGen = new Random();
+    ArrayList<String>clients = new ArrayList<>();
 
     public boolean isRunning() {
 	return running;
@@ -209,6 +211,14 @@ public class Box implements Serializable {
             ballLoc.y = ballLoc.y + ballVy;
 	}
 
+    }
+    
+    void setClientNames(ArrayList<String> clients) {
+	this.clients = clients;
+	System.out.println(clients);
+    }
+    ArrayList<String> getClientNames() {
+        return clients;
     }
 
 }

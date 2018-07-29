@@ -80,29 +80,21 @@ public abstract class GameCreator {
 	</ol>
 
 	 */
-	public void enterGame(GameNet_UserInterface yourUserInterface)
+	public void enterGame(GameNet_UserInterface yourUserInterface, GameInfo gameInfo)
 	{
-		String playerName;
+		String playerName = gameInfo.playerName;
 		GamePlayer gamePlayer; 
 		GameControl gameControl = new GameControl(this);
-		
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("Enter your name:");
-		playerName = keyboard.next();
-	    System.out.println("Server side of game?(y/n)");
-	    String str = keyboard.next();
-	    
-	    if (str.charAt(0) == 'y')
+	    if (gameInfo.createServer)
 	    {
 	    	gameControl.startServer(); // Start a Server GameControl
 	    }
 	    else
 	    {
-	    	System.out.println("Enter ipaddress:");
-	    	String ipaddr = keyboard.next();
+	    	String ipaddr = gameInfo.ipAddr;
 	    	int port;
 	    	System.out.println("Enter port number:");
-	    	port = keyboard.nextInt();
+	    	port = gameInfo.port;
 	    	gameControl.connect_to_server(ipaddr,port);
 	    }
 	    
@@ -112,7 +104,6 @@ public abstract class GameCreator {
 	    gamePlayer = new GamePlayer(playerName, gameControl, yourUserInterface);
 	  
 	    yourUserInterface.startUserInterface (gamePlayer);
-	    keyboard.close();
 	     
 	}
 

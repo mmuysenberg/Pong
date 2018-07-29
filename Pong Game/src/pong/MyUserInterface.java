@@ -91,10 +91,13 @@ public class MyUserInterface extends JFrame implements GameNet_UserInterface {
 	} else {
 
 	    if (!box.isRunning()) {
-		String success = "right player success count=" + box.successCount[0] + ", left player success count="
-			+ box.successCount[1];
+		String success = "";
+		for(String player: box.getClientNames()) {
+		    for(int i = 0; i < box.successCount.length; i++)
+                        success += " " + player + " success count: " + box.successCount[i] + "; "; 
 		String str = success + " Click Mouse to restart";
 		g.drawString(str, 100, 100);
+		}
 	    }
 
 	    Point bur = boardDimensions.toPixels(box.boxUpperRight);
