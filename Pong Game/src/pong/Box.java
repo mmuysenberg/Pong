@@ -29,16 +29,20 @@ public class Box implements Serializable {
     Point[] paddleLoc;
     int[] prevPaddleY = new int[2];
 
-    int paddleWidth;
     int ballRadius = 20;
     private int ballVx, ballVy;
 
-    int[] successCount = new int[2];
+    int paddleWidth;
     private boolean running = false;
     int whichPaddle;
     int paddleHitBallXSpeed;
     Random randomGen = new Random();
     ArrayList<String>clients = new ArrayList<>();
+
+    Point leftScorePoint;
+    Point rightScorePoint;
+    int[] successCount = new int[2];
+    
 
     public boolean isRunning() {
 	return running;
@@ -62,7 +66,9 @@ public class Box implements Serializable {
 	leftHoleUpper = new Point(box_left, box_top + (box_bottom - box_top) / 4);
 	leftHoleLower = new Point(box_left, box_top + 3 * (box_bottom - box_top) / 4);
 	paddleWidth = 90;
-	
+	leftScorePoint = new Point(box_right / 2,box_top);
+        rightScorePoint = new Point(box_right/2, box_top);
+        
 	paddleLoc = new Point[2];
 	setGame(false);
 
@@ -157,7 +163,6 @@ public class Box implements Serializable {
 		    ballVy = -16;
 		else if(yAngle == 0)
 		    ballVy = 0;
-		ballVx *= -1;
 		paddleHit = true;
 		System.out.println("In Hole and hits paddle");
 	    } else { // created one giant hole
@@ -167,10 +172,11 @@ public class Box implements Serializable {
 		running = false;
 		System.out.println("In Hole and missed by paddle");
 	    }
+            ballVx *= -1;
 	}
 	// left paddle
-	if (ballLoc.x - ballRadius < boxUpperLeft.x) {
-	//if(ballLoc.x - ballRadius <= boxUpperLeft.x + paddleHeight) { // test tomorrow
+//	if (ballLoc.x - ballRadius < boxUpperLeft.x) {
+	if(ballLoc.x - ballRadius <= boxUpperLeft.x - paddleHeight) { // test tomorrow
 	    if (ballLoc.y >= paddleLoc[1].y && ballLoc.y <= paddleLoc[1].y + paddleWidth) {
 		if(yAngle == -1)
 		    ballVy = 16;
@@ -178,7 +184,6 @@ public class Box implements Serializable {
 		    ballVy = -16;
 		else if(yAngle == 0)
 		    ballVy = 0;
-		ballVx *= -1;
 		System.out.println("In Hole and hits paddle");
 		paddleHit = true;
 	    } else {
@@ -189,6 +194,7 @@ public class Box implements Serializable {
 		running = false;
 		System.out.println("In Hole and missed by paddle");
 	    }
+            ballVx *= -1;
 	}
 
 	// check against the top and bottom wall

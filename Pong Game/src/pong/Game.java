@@ -24,7 +24,6 @@ public class Game extends javax.swing.JFrame {
         initComponents();
 	myMain = new MyMain();
 	myUserInterface = new MyUserInterface();
-	add(myUserInterface);
     }
 
     /**
@@ -304,6 +303,7 @@ public class Game extends javax.swing.JFrame {
 	myGameInfo = new GameInfo(playerName, createServer, ipAddr, port);
 	System.out.println(myGameInfo);
 	GameSetup.setVisible(false);
+	add(myUserInterface);
 	myMain.enterGame(myUserInterface, myGameInfo);
     }//GEN-LAST:event_jButton1ActionPerformed
 

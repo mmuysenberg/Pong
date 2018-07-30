@@ -131,24 +131,22 @@ super();
 		    g.fillOval(pball.x - r, pball.y - r, 2 * r, 2 * r);
 
 		    int paddleWidth = boardDimensions.toPixels(box.paddleWidth);
+
 		    for (int i = 0; i < 2; i++) {
 			Point pPaddle = boardDimensions.toPixels(box.paddleLoc[i]);
-			// g.setColor(paddleColors[i]);
 			g.fillRect(pPaddle.x, pPaddle.y, 8, paddleWidth);
-			// g.drawLine(pPaddle.x, pPaddle.y-paddleWidth/2,
-			// pPaddle.x, pPaddle.y+paddleWidth/2);
-			Font originalFont = getFont();
-			Font f = new Font(getFont().getFontName(), getFont().getStyle(), 80);
-			setFont(f);
-			if (i == 0) {
-			    g.drawString(box.successCount[i] + "", box.boxUpperRight.x - box.boxUpperRight.x / 2,
-				    box.boxLowerLeft.y / 2);
-			} else {
-			    g.drawString(box.successCount[i] + "", box.boxUpperLeft.x + box.boxUpperRight.x / 4,
-				    box.boxLowerLeft.y / 2);
-			}
-			setFont(originalFont);
 		    }
+		        //left score 
+		    	
+			g.setFont(new Font("Terminal",Font.BOLD,35));
+			Point leftScorePoint = boardDimensions.toPixels(box.leftScorePoint);
+			g.drawString(Integer.toString(box.successCount[1]), leftScorePoint.x-g.getFontMetrics(g.getFont()).getMaxAdvance(), leftScorePoint.y+g.getFont().getSize());
+			//right score
+			
+			g.setFont(new Font("Terminal",Font.BOLD,35));
+			Point rightScorePoint = boardDimensions.toPixels(box.rightScorePoint);
+			g.drawString(Integer.toString(box.successCount[0]), rightScorePoint.x+g.getFontMetrics(g.getFont()).getMaxAdvance(), rightScorePoint.y+g.getFont().getSize());
+			
 		}
 
 		theScreen.drawImage(offScreenImage, 0, 0, this);
