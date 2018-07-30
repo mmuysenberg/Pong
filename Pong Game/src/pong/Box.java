@@ -213,12 +213,14 @@ public class Box implements Serializable {
 
     }
     
-    void setClientNames(ArrayList<String> clients) {
-	this.clients = clients;
-	System.out.println(clients);
-    }
     ArrayList<String> getClientNames() {
         return clients;
+    }
+
+    public void addClientName(String name) {
+	// TODO Auto-generated method stub
+	this.clients.add(name);
+	
     }
 
 }

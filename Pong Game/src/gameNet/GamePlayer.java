@@ -41,7 +41,7 @@ public class GamePlayer  extends Thread
      * and the GameControl class to connect to. 
      * 
      */
-    GamePlayer(String playerName, GameControl game, 
+    public GamePlayer(String playerName, GameControl game, 
     		GameNet_UserInterface r)
     {
         this.playerName = playerName;

@@ -37,6 +37,7 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         if (myGameInput.command == MyGameInput.CONNECTING && clients.size() < 2)
         {
         	clients.add(myGameInput.name);
+        	 box.addClientName(myGameInput.name);
         }
         
         switch(myGameInput.command)
@@ -47,7 +48,6 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         	clients.remove(myGameInput.name);
         	break;
         case MyGameInput.MOUSE_PRESSED:
-        	 box.setClientNames(clients);
         	 box.setGame(true);
         	break;
         case MyGameInput.MOUSE_MOVED: 

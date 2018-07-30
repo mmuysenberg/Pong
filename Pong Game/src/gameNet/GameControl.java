@@ -51,8 +51,9 @@ public class GameControl
      * aren't needing to network.  See myGame2 in the tictactoe example.
      * 
      * 
+	 * @param gc
      */
-    GameControl(GameCreator gc)
+    public GameControl(GameCreator gc)
     {
     	gameCreator = gc;
     }
@@ -65,7 +66,7 @@ public class GameControl
      * 
      */
 
-    void connect_to_server(String ipAddr, int serverPortNum)
+    public void connect_to_server(String ipAddr, int serverPortNum)
     {
     	this.ipAddr=ipAddr;
     	this.serverPortNum=serverPortNum;
@@ -95,7 +96,7 @@ public class GameControl
      * Note that the actual variable createServer is not actually used. 
      * 
      */
-    void startServer()
+    public void startServer()
     {          
         try
         {                 
