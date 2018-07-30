@@ -300,11 +300,22 @@ public class Game extends javax.swing.JFrame {
 		ipAddr = null;
 		port = 0;
 	}
+	
 	myGameInfo = new GameInfo(playerName, createServer, ipAddr, port);
+	
 	System.out.println(myGameInfo);
-	GameSetup.setVisible(false);
+	
+	
+	GameInfo theGameInfo = myMain.enterGame(myUserInterface, myGameInfo);
+	if(!myGameInfo.isValidServer()) {
+		
+	}
+	serverIpAddr.setText(theGameInfo.getIpAddr());
+	serverPort.setText(Integer.toString(theGameInfo.getPort()));
+	
+	System.out.println(theGameInfo);
+//	GameSetup.setVisible(false);
 	add(myUserInterface);
-	myMain.enterGame(myUserInterface, myGameInfo);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
