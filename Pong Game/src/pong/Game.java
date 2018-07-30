@@ -105,7 +105,7 @@ public class Game extends javax.swing.JFrame {
 
                 jLabel4.setText("Port");
 
-                serverIpAddr.setText("0.0.0.0");
+                serverIpAddr.setText("10.0.0.0");
 
                 serverPort.setText("54321");
 
@@ -119,14 +119,15 @@ public class Game extends javax.swing.JFrame {
                                         .addGroup(serverPanelLayout.createSequentialGroup()
                                                 .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(serverPort))
+                                                .addComponent(serverPort)
+                                                .addGap(93, 93, 93))
                                         .addGroup(serverPanelLayout.createSequentialGroup()
                                                 .addComponent(jLabel3)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                                                 .addComponent(jLabel5)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(serverIpAddr)))
-                                .addGap(93, 93, 93))
+                                                .addComponent(serverIpAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(74, 74, 74))))
                 );
                 serverPanelLayout.setVerticalGroup(
                         serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,8 +156,7 @@ public class Game extends javax.swing.JFrame {
 
                 jLabel9.setText("IP Address");
 
-                clientIpAddr.setText("0.0.0.0");
-                clientIpAddr.setCaretPosition(0);
+                clientIpAddr.setText("10.0.0.0");
                 clientIpAddr.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                 clientIpAddr.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +195,7 @@ public class Game extends javax.swing.JFrame {
                                 .addGap(169, 169, 169)
                                 .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(clientPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(clientIpAddr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(clientIpAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 clientPanelLayout.setVerticalGroup(

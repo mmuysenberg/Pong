@@ -98,7 +98,6 @@ public abstract class GameCreator {
 	    	gameControl.connect_to_server(ipaddr,port);
 	    }
 	    
-	 // Connect ourselves to the GameControl
 	    
 	    
 	    gamePlayer = new GamePlayer(playerName, gameControl, yourUserInterface);
