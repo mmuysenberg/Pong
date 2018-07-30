@@ -42,7 +42,7 @@ public class MyUserInterface extends JPanel implements GameNet_UserInterface {
 		MyGameOutput myGameOutput = (MyGameOutput) ob;
 		// Check to see we were accepted and connected
 		if (myGamePlayer != null) {
-			if (myGameOutput.myGame.getMyIndex(myName) < 0) {
+			if (myGameOutput.myGame.getMyIndex(myName) < 1) {
 				System.out.println("Not allowed to connect to the game");
 				exitProgram();
 			} else {

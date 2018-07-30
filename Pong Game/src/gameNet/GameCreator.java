@@ -80,14 +80,15 @@ public abstract class GameCreator {
 	</ol>
 
 	 */
-	public void enterGame(GameNet_UserInterface yourUserInterface, GameInfo gameInfo)
+	public GameInfo enterGame(GameNet_UserInterface yourUserInterface, GameInfo gameInfo)
 	{
+		GameInfo theGame = new GameInfo(null, false, null, 0);
 		String playerName = gameInfo.playerName;
 		GamePlayer gamePlayer; 
 		GameControl gameControl = new GameControl(this);
 	    if (gameInfo.createServer)
 	    {
-	    	gameControl.startServer(); // Start a Server GameControl
+	    	return gameControl.startServer(); // Start a Server GameControl
 	    }
 	    else
 	    {
@@ -103,7 +104,7 @@ public abstract class GameCreator {
 	    gamePlayer = new GamePlayer(playerName, gameControl, yourUserInterface);
 	  
 	    yourUserInterface.startUserInterface (gamePlayer);
-	     
+	     return theGame;
 	}
 
 }

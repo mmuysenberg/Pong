@@ -96,7 +96,7 @@ public class GameControl
      * Note that the actual variable createServer is not actually used. 
      * 
      */
-    public void startServer()
+    public GameInfo startServer()
     {          
         try
         {                 
@@ -113,15 +113,19 @@ public class GameControl
             serverPortNum = gameServer.getPortNum()  ; 
             ipAddr= gameServer.inetAddress;
             
+            
             System.out.println("Starting GameControl Server ipAddress("+ipAddr + 
                 ")  portNum ("+ serverPortNum + ")");
+            
              
         } 
         catch (RuntimeException e)
         {
             System.out.println("GameControl: Runtime Exception:" + e);
             e.printStackTrace(System.out);
+            return new GameInfo("", true, ipAddr,serverPortNum, false);
         }
+        return new GameInfo("", true, ipAddr,serverPortNum);
  
     }
     
