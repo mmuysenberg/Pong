@@ -123,9 +123,9 @@ public class GameControl
         {
             System.out.println("GameControl: Runtime Exception:" + e);
             e.printStackTrace(System.out);
-            return new GameInfo("", true, ipAddr,serverPortNum, false);
+            return new GameInfo(null, true, ipAddr,serverPortNum, false);
         }
-        return new GameInfo("", true, ipAddr,serverPortNum);
+        return new GameInfo(null, true, ipAddr,serverPortNum, true);
  
     }
     

@@ -82,13 +82,13 @@ public abstract class GameCreator {
 	 */
 	public GameInfo enterGame(GameNet_UserInterface yourUserInterface, GameInfo gameInfo)
 	{
-		GameInfo theGame = new GameInfo(null, false, null, 0);
+		GameInfo theGame;
 		String playerName = gameInfo.playerName;
 		GamePlayer gamePlayer; 
 		GameControl gameControl = new GameControl(this);
 	    if (gameInfo.createServer)
 	    {
-	    	return gameControl.startServer(); // Start a Server GameControl
+	    	theGame = gameControl.startServer(); // Start a Server GameControl
 	    }
 	    else
 	    {
@@ -97,6 +97,7 @@ public abstract class GameCreator {
 	    	System.out.println("Enter port number:");
 	    	port = gameInfo.port;
 	    	gameControl.connect_to_server(ipaddr,port);
+	    	theGame = new GameInfo(playerName, false, ipaddr, port);
 	    }
 	    
 	    

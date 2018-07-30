@@ -314,7 +314,7 @@ public class Game extends javax.swing.JFrame {
 	serverPort.setText(Integer.toString(theGameInfo.getPort()));
 	
 	System.out.println(theGameInfo);
-//	GameSetup.setVisible(false);
+	GameSetup.setVisible(false);
 	add(myUserInterface);
     }//GEN-LAST:event_jButton1ActionPerformed
 
