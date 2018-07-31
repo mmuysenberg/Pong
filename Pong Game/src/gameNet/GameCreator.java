@@ -80,32 +80,31 @@ public abstract class GameCreator {
 	</ol>
 
 	 */
-	public GameInfo enterGame(GameNet_UserInterface yourUserInterface, GameInfo gameInfo)
+	public GameInfo enterGame(GameNet_UserInterface yourUserInterface, GameInfo gameInfo) throws Exception
 	{
-		GameInfo theGame;
-		String playerName = gameInfo.playerName;
 		GamePlayer gamePlayer; 
 		GameControl gameControl = new GameControl(this);
-	    if (gameInfo.createServer)
+
+		String playerName = gameInfo.getPlayerName();
+	    	String ipaddr = gameInfo.ipAddr;
+	    	int port = gameInfo.getPort();
+	    	boolean isServer = gameInfo.isServer();
+	    	
+	    if (isServer)
 	    {
-	    	theGame = gameControl.startServer(); // Start a Server GameControl
+	    	gameControl.startServer(); // Start a Server GameControl
+	    	port = gameControl.getPortNum();
+	    	ipaddr = gameControl.getIpAddress();
 	    }
 	    else
 	    {
-	    	String ipaddr = gameInfo.ipAddr;
-	    	int port;
-	    	System.out.println("Enter port number:");
-	    	port = gameInfo.port;
 	    	gameControl.connect_to_server(ipaddr,port);
-	    	theGame = new GameInfo(playerName, false, ipaddr, port);
 	    }
-	    
-	    
 	    
 	    gamePlayer = new GamePlayer(playerName, gameControl, yourUserInterface);
 	  
-	    yourUserInterface.startUserInterface (gamePlayer);
-	     return theGame;
+	     yourUserInterface.startUserInterface (gamePlayer);
+	     return new GameInfo(playerName, false, ipaddr, port);
 	}
 
 }

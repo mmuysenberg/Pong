@@ -42,7 +42,7 @@ public class GamePlayer  extends Thread
      * 
      */
     public GamePlayer(String playerName, GameControl game, 
-    		GameNet_UserInterface r)
+    		GameNet_UserInterface r) throws Exception
     {
         this.playerName = playerName;
         this.gameControl = game;
@@ -53,7 +53,7 @@ public class GamePlayer  extends Thread
         // in the next 2 statements ... can be solved with a little
         // more logic. 
         
-        joinGame();  
+        joinGame();   
     }
     /**
      * getPlayerName returns the name of the player 
@@ -132,14 +132,14 @@ public class GamePlayer  extends Thread
    * construct an ObjectOutputStream and ObjectInputStream from the socket. 
     
    */
-   void joinGame()
+   public void joinGame() throws Exception
     {
         ObjectOutputStream tempSocketOutput = null;
         if (gameControl==null)
         	throw new RuntimeException ("joinGame called on a null gameControl");
 
-        try 
-        {
+//        try 
+//        {
             gameSocket = new Socket(
             		gameControl.getIpAddress(), 
                     gameControl.getPortNum());
@@ -160,32 +160,33 @@ public class GamePlayer  extends Thread
             // It turns out that a sendMessage is likely to be sent
             // immediately when this call returns.
            
-            try
-            {   
+//            try
+//            {   
                 Thread.sleep(500);// Sleep for 1/2 second
-            }catch (InterruptedException e){}   
+//            }catch (InterruptedException e){}   
             
             // Start up a Thread to read from the socket and write 
             //   the contents to the screen
             
             this.start();
-            try
-            {   
-                Thread.sleep(500);// Sleep for 1/2 second
-            }catch (InterruptedException e){}   
+//            try
+//            {   
+//                Thread.sleep(500);// Sleep for 1/2 second
+//            }catch (InterruptedException e){}   
          
-        }
-        catch (UnknownHostException e) 
-        {
-            System.out.println("GamePlayer.joinGame Cant find host: "+ e);
-        } 
-        catch (IOException e) 
-        {
-            System.out.println("GamePlayer.joinGame IOException: " +e);
-            e.printStackTrace(System.out);
-        }    
+//        }
+//        catch (UnknownHostException e) 
+//        {
+//            System.out.println("GamePlayer.joinGame Cant find host: "+ e);
+//            return false;
+//        } 
+//        catch (IOException e) 
+//        {
+//            System.out.println("GamePlayer.joinGame IOException: " +e);
+//            e.printStackTrace(System.out);
+//            return false;
+//        }    
         socketOutput = tempSocketOutput;  
-
     }
     
    /**

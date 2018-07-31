@@ -96,7 +96,7 @@ public class GameControl
      * Note that the actual variable createServer is not actually used. 
      * 
      */
-    public GameInfo startServer()
+    public void startServer()
     {          
         try
         {                 
@@ -123,9 +123,7 @@ public class GameControl
         {
             System.out.println("GameControl: Runtime Exception:" + e);
             e.printStackTrace(System.out);
-            return new GameInfo(null, true, ipAddr,serverPortNum, false);
         }
-        return new GameInfo(null, true, ipAddr,serverPortNum, true);
  
     }
     
