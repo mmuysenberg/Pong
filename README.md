@@ -3,7 +3,7 @@ A simple networked pong game that has a setup and basic gameplay.
 
 
 ## Installation
-You need to build the game. Than you can run it.
+You can download a built game [here](https://www.dropbox.com/s/p0u7m9owpbkb43d/PongGame.jar?dl=0)  or you can build the game and import it into Eclipse than run it.
 
 ## Usage
 ![Game Setup](./Game_Setup.png)
