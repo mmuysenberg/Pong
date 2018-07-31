@@ -6,6 +6,7 @@
 package pong;
 
 import gameNet.GameInfo;
+import javax.swing.JFrame;
 
 /**
  *
@@ -41,13 +42,6 @@ public class Game extends javax.swing.JFrame {
                 playerName = new javax.swing.JTextField();
                 jLabel1 = new javax.swing.JLabel();
                 jTabbedPane2 = new javax.swing.JTabbedPane();
-                clientPanel = new javax.swing.JPanel();
-                jLabel8 = new javax.swing.JLabel();
-                jLabel9 = new javax.swing.JLabel();
-                jLabel10 = new javax.swing.JLabel();
-                clientIpAddr = new javax.swing.JTextField();
-                clientPort = new javax.swing.JTextField();
-                clientSetup = new javax.swing.JButton();
                 serverPanel = new javax.swing.JPanel();
                 jLabel3 = new javax.swing.JLabel();
                 jLabel4 = new javax.swing.JLabel();
@@ -55,13 +49,23 @@ public class Game extends javax.swing.JFrame {
                 serverIpAddr = new javax.swing.JLabel();
                 serverPort = new javax.swing.JLabel();
                 serverSetup = new javax.swing.JButton();
+                clientPanel = new javax.swing.JPanel();
+                jLabel8 = new javax.swing.JLabel();
+                jLabel9 = new javax.swing.JLabel();
+                jLabel10 = new javax.swing.JLabel();
+                clientIpAddr = new javax.swing.JTextField();
+                clientPort = new javax.swing.JTextField();
+                clientSetup = new javax.swing.JButton();
                 connectionStatus = new javax.swing.JLabel();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setTitle("Pong Game");
                 setBackground(new java.awt.Color(0, 0, 0));
                 setFocusTraversalPolicyProvider(true);
+                setName("Pong Game"); // NOI18N
                 setPreferredSize(new java.awt.Dimension(800, 400));
                 setResizable(false);
+                setSize(new java.awt.Dimension(800, 400));
                 addWindowListener(new java.awt.event.WindowAdapter() {
                         public void windowClosed(java.awt.event.WindowEvent evt) {
                                 formWindowClosed(evt);
@@ -73,6 +77,8 @@ public class Game extends javax.swing.JFrame {
                 GameSetup.setToolTipText("");
                 GameSetup.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                 GameSetup.setPreferredSize(new java.awt.Dimension(800, 400));
+                GameSetup.setRequestFocusEnabled(false);
+                GameSetup.setSize(new java.awt.Dimension(800, 400));
 
                 enterGame.setBackground(new java.awt.Color(102, 102, 102));
                 enterGame.setFont(new java.awt.Font("Source Sans Pro", 0, 24)); // NOI18N
@@ -120,6 +126,101 @@ public class Game extends javax.swing.JFrame {
                                 jTabbedPane2ComponentShown(evt);
                         }
                 });
+
+                serverPanel.setBackground(new java.awt.Color(0, 0, 0));
+                serverPanel.setForeground(new java.awt.Color(255, 255, 255));
+                serverPanel.setToolTipText("");
+                serverPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+                        public void componentShown(java.awt.event.ComponentEvent evt) {
+                                serverPanelComponentShown(evt);
+                        }
+                });
+
+                jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+                jLabel3.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
+                jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+                jLabel3.setText("IP Address");
+                jLabel3.setToolTipText("");
+
+                jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+                jLabel4.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
+                jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+                jLabel4.setText("Port");
+                jLabel4.setToolTipText("");
+
+                jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+                jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+                jLabel5.setToolTipText("");
+
+                serverIpAddr.setBackground(new java.awt.Color(0, 0, 0));
+                serverIpAddr.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
+                serverIpAddr.setForeground(new java.awt.Color(255, 255, 255));
+                serverIpAddr.setText("10.0.0.0");
+                serverIpAddr.setToolTipText("");
+
+                serverPort.setBackground(new java.awt.Color(0, 0, 0));
+                serverPort.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
+                serverPort.setForeground(new java.awt.Color(255, 255, 255));
+                serverPort.setText("54321");
+                serverPort.setToolTipText("");
+
+                serverSetup.setBackground(new java.awt.Color(102, 102, 102));
+                serverSetup.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
+                serverSetup.setForeground(new java.awt.Color(255, 255, 255));
+                serverSetup.setText("Setup Server");
+                serverSetup.setToolTipText("");
+                serverSetup.setBorderPainted(false);
+                serverSetup.setContentAreaFilled(false);
+                serverSetup.setOpaque(true);
+                serverSetup.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                serverSetupActionPerformed(evt);
+                        }
+                });
+
+                javax.swing.GroupLayout serverPanelLayout = new javax.swing.GroupLayout(serverPanel);
+                serverPanel.setLayout(serverPanelLayout);
+                serverPanelLayout.setHorizontalGroup(
+                        serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(serverPanelLayout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                                .addComponent(jLabel5)
+                                                .addGap(191, 191, 191))
+                                        .addGroup(serverPanelLayout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
+                                                                .addComponent(serverSetup)
+                                                                .addGap(52, 52, 52))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
+                                                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(serverIpAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(serverPort))
+                                                                .addGap(48, 48, 48))))))
+                );
+                serverPanelLayout.setVerticalGroup(
+                        serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel5)
+                                        .addComponent(serverIpAddr))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(serverPort))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                                .addComponent(serverSetup)
+                                .addGap(25, 25, 25))
+                );
+
+                jTabbedPane2.addTab("Server", serverPanel);
 
                 clientPanel.setBackground(new java.awt.Color(0, 0, 0));
                 clientPanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -224,108 +325,13 @@ public class Game extends javax.swing.JFrame {
                 );
 
                 clientIpAddr.getAccessibleContext().setAccessibleName("");
-                clientIpAddr.getAccessibleContext().setAccessibleDescription("");
 
                 jTabbedPane2.addTab("Client", clientPanel);
-
-                serverPanel.setBackground(new java.awt.Color(0, 0, 0));
-                serverPanel.setForeground(new java.awt.Color(255, 255, 255));
-                serverPanel.setToolTipText("");
-                serverPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
-                        public void componentShown(java.awt.event.ComponentEvent evt) {
-                                serverPanelComponentShown(evt);
-                        }
-                });
-
-                jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-                jLabel3.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
-                jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-                jLabel3.setText("IP Address");
-                jLabel3.setToolTipText("");
-
-                jLabel4.setBackground(new java.awt.Color(0, 0, 0));
-                jLabel4.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
-                jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-                jLabel4.setText("Port");
-                jLabel4.setToolTipText("");
-
-                jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-                jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-                jLabel5.setToolTipText("");
-
-                serverIpAddr.setBackground(new java.awt.Color(0, 0, 0));
-                serverIpAddr.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
-                serverIpAddr.setForeground(new java.awt.Color(255, 255, 255));
-                serverIpAddr.setText("10.0.0.0");
-                serverIpAddr.setToolTipText("");
-
-                serverPort.setBackground(new java.awt.Color(0, 0, 0));
-                serverPort.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
-                serverPort.setForeground(new java.awt.Color(255, 255, 255));
-                serverPort.setText("54321");
-                serverPort.setToolTipText("");
-
-                serverSetup.setBackground(new java.awt.Color(102, 102, 102));
-                serverSetup.setFont(new java.awt.Font("Source Sans Pro", 0, 18)); // NOI18N
-                serverSetup.setForeground(new java.awt.Color(255, 255, 255));
-                serverSetup.setText("Setup Server");
-                serverSetup.setToolTipText("");
-                serverSetup.setBorderPainted(false);
-                serverSetup.setContentAreaFilled(false);
-                serverSetup.setOpaque(true);
-                serverSetup.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                serverSetupActionPerformed(evt);
-                        }
-                });
-
-                javax.swing.GroupLayout serverPanelLayout = new javax.swing.GroupLayout(serverPanel);
-                serverPanel.setLayout(serverPanelLayout);
-                serverPanelLayout.setHorizontalGroup(
-                        serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(serverPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                                                .addComponent(jLabel5)
-                                                .addGap(191, 191, 191))
-                                        .addGroup(serverPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
-                                                                .addComponent(serverSetup)
-                                                                .addGap(52, 52, 52))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
-                                                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(serverIpAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(serverPort))
-                                                                .addGap(48, 48, 48))))))
-                );
-                serverPanelLayout.setVerticalGroup(
-                        serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel5)
-                                        .addComponent(serverIpAddr))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel4)
-                                        .addComponent(serverPort))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addComponent(serverSetup)
-                                .addGap(25, 25, 25))
-                );
-
-                jTabbedPane2.addTab("Server", serverPanel);
 
                 connectionStatus.setBackground(new java.awt.Color(0, 0, 0));
                 connectionStatus.setFont(new java.awt.Font("Source Serif Pro", 0, 18)); // NOI18N
                 connectionStatus.setForeground(new java.awt.Color(255, 255, 255));
+                connectionStatus.setText("Waiting for Setup");
                 connectionStatus.setToolTipText("");
 
                 javax.swing.GroupLayout GameSetupLayout = new javax.swing.GroupLayout(GameSetup);
@@ -333,53 +339,39 @@ public class Game extends javax.swing.JFrame {
                 GameSetupLayout.setHorizontalGroup(
                         GameSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GameSetupLayout.createSequentialGroup()
-                                .addGap(0, 134, Short.MAX_VALUE)
+                                .addGap(51, 51, 51)
                                 .addGroup(GameSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(GameSetupLayout.createSequentialGroup()
                                                 .addGroup(GameSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel1)
-                                                        .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(114, 114, 114)
-                                                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel1))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(50, 50, 50))
                                         .addGroup(GameSetupLayout.createSequentialGroup()
-                                                .addComponent(connectionStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(enterGame)))
-                                .addGap(50, 50, 50))
+                                                .addComponent(connectionStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                                                .addComponent(enterGame)
+                                                .addGap(80, 80, 80))))
                 );
                 GameSetupLayout.setVerticalGroup(
                         GameSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(GameSetupLayout.createSequentialGroup()
-                                .addGap(48, 48, 48)
+                                .addContainerGap(83, Short.MAX_VALUE)
                                 .addGroup(GameSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(GameSetupLayout.createSequentialGroup()
                                                 .addComponent(jLabel1)
-                                                .addGap(51, 51, 51)
-                                                .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                                .addGroup(GameSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(enterGame)
-                                        .addComponent(connectionStatus))
-                                .addGap(44, 44, 44))
+                                                .addGap(27, 27, 27)
+                                                .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(GameSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(connectionStatus)
+                                        .addComponent(enterGame))
+                                .addGap(50, 50, 50))
                 );
 
-                connectionStatus.getAccessibleContext().setAccessibleName("");
-
-                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-                getContentPane().setLayout(layout);
-                layout.setHorizontalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(GameSetup, 788, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                );
-                layout.setVerticalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(GameSetup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
-                );
-
+                getContentPane().add(GameSetup, java.awt.BorderLayout.CENTER);
                 GameSetup.getAccessibleContext().setAccessibleName("");
 
                 pack();
@@ -427,6 +419,7 @@ public class Game extends javax.swing.JFrame {
 	if(serverSetupRun){
             add(myUserInterface);
             GameSetup.setVisible(false);
+	    setTitle(myGameInfo.getPlayerName() +" " +myGameInfo.getIpAddr() +":" + myGameInfo.getPort());
 	}
     }//GEN-LAST:event_enterGameActionPerformed
 
