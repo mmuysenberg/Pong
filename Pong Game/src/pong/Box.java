@@ -121,7 +121,6 @@ public class Box implements Serializable {
 		yAngle = 0;
 	    }
 	}
-	System.out.println("curr pos: " + paddleLoc[clientIndex].y + "; prev pos: " + prevPaddleY[clientIndex]);
 	prevPaddleY[clientIndex] = paddleLoc[clientIndex].y;
     }
 
@@ -155,7 +154,6 @@ public class Box implements Serializable {
 		paddleHit = true;
 		ballVx *= -1;
 	    } else { // created one giant hole
-		System.out.println("In Hole and hits paddle");
 		successCount[1]++;
 		whichPaddle = 1;
 		running = false;
@@ -182,7 +180,6 @@ public class Box implements Serializable {
 		// ballLoc.x = boxUpperLeft.x + ballRadius;
 		whichPaddle = 0;
 		running = false;
-		System.out.println("In Hole and missed by paddle");
 	    }
 
 	}

@@ -406,9 +406,8 @@ public class Game extends javax.swing.JFrame {
             myGameInfo = myMain.enterGame(myUserInterface, myGameInfo);
             serverIpAddr.setText(myGameInfo.getIpAddr());
             serverPort.setText(Integer.toString(myGameInfo.getPort()));
-            System.out.println(myGameInfo);
 	} catch (Exception e) {
-	    System.err.println("SOMETHING WENT WRONG");
+	    System.err.println("SOMETHING WENT WRONG: " + e);
 	    return false;
 	}
 	return true;	
