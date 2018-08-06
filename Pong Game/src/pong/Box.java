@@ -41,6 +41,8 @@ public class Box implements Serializable {
 
     Point leftScorePoint;
     Point rightScorePoint;
+    Point leftNameLocation;
+    Point rightNameLocation;
     int[] successCount = new int[2];
 
     public boolean isRunning() {
@@ -65,8 +67,10 @@ public class Box implements Serializable {
 	leftHoleUpper = new Point(box_left, box_top + (box_bottom - box_top) / 4);
 	leftHoleLower = new Point(box_left, box_top + 3 * (box_bottom - box_top) / 4);
 	paddleWidth = 90;
-	leftScorePoint = new Point(box_right / 2, box_top);
-	rightScorePoint = new Point(box_right / 2, box_top);
+	leftScorePoint = new Point(box_left, box_top);
+	rightScorePoint = new Point(box_right, box_top);
+	leftNameLocation = new Point(box_left, box_top);
+	rightNameLocation = new Point(box_right, box_top);
 
 	paddleLoc = new Point[2];
 	setGame(false);
@@ -138,7 +142,7 @@ public class Box implements Serializable {
 	boolean paddleHit = false;
 
 	// right paddle
-	if (ballLoc.x + ballRadius > boxUpperRight.x) // if ball x is >= right x
+	if (ballLoc.x + ballRadius + ballVx > boxUpperRight.x) // if ball x is >= right x
 	{
 	    if (ballLoc.x >= paddleLoc[0].x - ballRadius - paddleHeight * 2 && ballLoc.y >= paddleLoc[0].y && // if ball
 													      // y is
@@ -154,13 +158,14 @@ public class Box implements Serializable {
 		paddleHit = true;
 		ballVx *= -1;
 	    } else { // created one giant hole
+		ballVx *= -1;
 		successCount[1]++;
 		whichPaddle = 1;
 		running = false;
 	    }
 	}
 	// left paddle
-	if (ballLoc.x - ballRadius < boxUpperLeft.x) {
+	if (ballLoc.x - ballRadius + ballVx < boxUpperLeft.x) {
 	    // if(ballLoc.x - ballRadius <= boxUpperLeft.x - paddleHeight) { // test
 	    // tomorrow
 	    if (ballLoc.x <= paddleLoc[1].x + ballRadius + paddleHeight * 2 && ballLoc.y >= paddleLoc[1].y
@@ -177,7 +182,8 @@ public class Box implements Serializable {
 	    } else {
 		successCount[0]++; // In hole but bounces off left paddle
 		// In hole and missed by paddle
-		// ballLoc.x = boxUpperLeft.x + ballRadius;
+//		 ballLoc.x = boxUpperLeft.x + ballRadius;
+		ballVx *= -1;
 		whichPaddle = 0;
 		running = false;
 	    }
@@ -189,12 +195,12 @@ public class Box implements Serializable {
 												   // x
 	// || ball x > left x
 	{
-	    if (ballLoc.y + ballRadius >= boxLowerRight.y) { // if ball y >= bottom y
+	    if (ballLoc.y + ballRadius + ballVy >= boxLowerRight.y) { // if ball y >= bottom y
 		ballVy *= -1;
-		ballLoc.y = boxLowerRight.y - ballRadius;
-	    } else if (ballLoc.y + ballRadius <= boxUpperRight.y) { // else if ball y <= top y
+//		ballLoc.y = boxLowerRight.y - ballRadius;
+	    } else if (ballLoc.y - ballRadius +ballVy <= boxUpperRight.y) { // else if ball y <= top y
 		ballVy *= -1;
-		ballLoc.y = boxUpperRight.y - ballRadius;
+//		ballLoc.y = boxUpperRight.y - ballRadius;
 	    }
 	}
 	if (paddleHit) {

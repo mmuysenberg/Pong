@@ -1,9 +1,9 @@
 package pong;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,10 +12,8 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import gameNet.GameNet_UserInterface;
@@ -86,8 +84,8 @@ public class MyUserInterface extends JPanel implements GameNet_UserInterface {
 
 	Insets insets = getInsets();
 	int pad = 10;
-	boardDimensions.setParms(insets.top + pad, insets.left + pad, d.width - insets.left - insets.right - 2 * pad,
-		d.height - insets.top - insets.bottom - 2 * pad);
+	boardDimensions.setParms(insets.top, insets.left + pad, d.width - insets.left - insets.right - 2 * pad,
+		d.height - insets.top - insets.bottom - 2 * 0);
 	if (box == null) {
 	    g.drawString("Click Mouse to start", 100, 100);
 	} else {
@@ -132,17 +130,38 @@ public class MyUserInterface extends JPanel implements GameNet_UserInterface {
 		    g.fillRect(pPaddle.x, pPaddle.y, 8, paddleWidth);
 	    }
 
+	    FontMetrics fontMetrics = g.getFontMetrics(g.getFont());
+	    int fontSize =  g.getFont().getSize();
+
 	    Point leftScorePoint = boardDimensions.toPixels(box.leftScorePoint);
 	    Point rightScorePoint = boardDimensions.toPixels(box.rightScorePoint);
 
+	    Point rightNameLocation = boardDimensions.toPixels(box.rightNameLocation);
+	    Point leftNameLocation = boardDimensions.toPixels(box.leftNameLocation);
+	    int nameXMargin = 20;
+
+	    ArrayList<String> names = box.getClientNames();
+	    String leftName = "Unkown";
+	    String rightName = names.get(0);
+	    if(names.size() > 1) 
+                leftName = names.get(1);
+	    
+	    String leftScore = Integer.toString(box.successCount[1]);
+	    String rightScore = Integer.toString(box.successCount[0]);
+	    
 	    // left score
-	    g.drawString(Integer.toString(box.successCount[1]),
-		    leftScorePoint.x - g.getFontMetrics(g.getFont()).getMaxAdvance(),
-		    leftScorePoint.y + g.getFont().getSize());
+	    g.drawString(leftScore,
+		    leftScorePoint.x + fontMetrics.stringWidth(leftName) + nameXMargin*2,
+		    leftScorePoint.y + fontSize);
+	    // left name
+	    System.out.println(leftNameLocation);
+	    g.drawString(leftName, leftNameLocation.x + nameXMargin , leftNameLocation.y +fontSize);
+	    //right name
+	    g.drawString(rightName, rightNameLocation.x - fontMetrics.stringWidth(rightName) - nameXMargin, rightNameLocation.y + fontSize);
 	    // right score
-	    g.drawString(Integer.toString(box.successCount[0]),
-		    rightScorePoint.x + g.getFontMetrics(g.getFont()).getMaxAdvance(),
-		    rightScorePoint.y + g.getFont().getSize());
+	    g.drawString(rightScore,
+		    rightScorePoint.x - fontMetrics.stringWidth(rightName) - (nameXMargin*3),
+		    rightScorePoint.y + fontSize);
 
 	}
 

@@ -5,8 +5,15 @@
  */
 package pong;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+
 import gameNet.GameInfo;
-import javax.swing.JFrame;
 
 /**
  *
@@ -63,7 +70,6 @@ public class Game extends javax.swing.JFrame {
                 setBackground(new java.awt.Color(0, 0, 0));
                 setFocusTraversalPolicyProvider(true);
                 setName("Pong Game"); // NOI18N
-                setPreferredSize(new java.awt.Dimension(800, 400));
                 setResizable(false);
                 setSize(new java.awt.Dimension(800, 400));
                 addWindowListener(new java.awt.event.WindowAdapter() {
@@ -187,7 +193,7 @@ public class Game extends javax.swing.JFrame {
                                 .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(serverPanelLayout.createSequentialGroup()
                                                 .addComponent(jLabel3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                                                 .addComponent(jLabel5)
                                                 .addGap(191, 191, 191))
                                         .addGroup(serverPanelLayout.createSequentialGroup()
@@ -199,9 +205,9 @@ public class Game extends javax.swing.JFrame {
                                                                 .addGap(52, 52, 52))
                                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serverPanelLayout.createSequentialGroup()
                                                                 .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(serverIpAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(serverIpAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(serverPort))
-                                                                .addGap(48, 48, 48))))))
+                                                                .addContainerGap())))))
                 );
                 serverPanelLayout.setVerticalGroup(
                         serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +221,7 @@ public class Game extends javax.swing.JFrame {
                                 .addGroup(serverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel4)
                                         .addComponent(serverPort))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addComponent(serverSetup)
                                 .addGap(25, 25, 25))
                 );
@@ -293,14 +299,15 @@ public class Game extends javax.swing.JFrame {
                                 .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(clientPanelLayout.createSequentialGroup()
                                                 .addGap(137, 137, 137)
-                                                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(clientPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(clientSetup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(clientIpAddr))
-                                                .addContainerGap(35, Short.MAX_VALUE))
+                                                        .addComponent(clientSetup))
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(clientPanelLayout.createSequentialGroup()
                                                 .addComponent(jLabel9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(clientIpAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel10)
                                                 .addGap(143, 143, 143))
                                         .addGroup(clientPanelLayout.createSequentialGroup()
@@ -319,7 +326,7 @@ public class Game extends javax.swing.JFrame {
                                 .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel8)
                                         .addComponent(clientPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                                 .addComponent(clientSetup)
                                 .addGap(23, 23, 23))
                 );
@@ -401,7 +408,23 @@ public class Game extends javax.swing.JFrame {
 	}
 
 	myGameInfo = new GameInfo(player, createServer, ipAddr, port);
-
+//	StringSelection data = new StringSelection
+//	         ("This is copied to the clipboard");
+//	      Clipboard cb = Toolkit.getDefaultToolkit()
+//	         .getSystemClipboard();
+//	      cb.setContents(data, data);
+//
+//
+//	      // This represents the paste (Ctrl+V) operation
+//
+//	      try {
+//	         Transferable t = cb.getContents(null);
+//	         if (t.isDataFlavorSupported(DataFlavor.stringFlavor))
+//	            System.out.println(t.getTransferData(DataFlavor
+//	               .stringFlavor));
+//	      } catch (UnsupportedFlavorException | IOException ex) {
+//	          System.out.println("");
+//	      }
 	try {
             myGameInfo = myMain.enterGame(myUserInterface, myGameInfo);
             serverIpAddr.setText(myGameInfo.getIpAddr());
