@@ -4,10 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/ijaaztello/git/Pong/Pong%20Game/src/pong/MyUserInterface.java</file>
-            <file>file:/Users/ijaaztello/git/Pong/Pong%20Game/src/gameNet/GameInfo.java</file>
             <file>file:/Users/ijaaztello/git/Pong/Pong%20Game/src/gameNet/GameNet_UserInterface.java</file>
+            <file>file:/Users/ijaaztello/git/Pong/Pong%20Game/src/gameNet/GameInfo.java</file>
             <file>file:/Users/ijaaztello/git/Pong/Pong%20Game/src/gameNet/GameCreator.java</file>
             <file>file:/Users/ijaaztello/git/Pong/Pong%20Game/src/pong/MyMain.java</file>
+            <file>file:/Users/ijaaztello/git/Pong/Pong%20Game/src/pong/Box.java</file>
             <file>file:/Users/ijaaztello/git/Pong/Pong%20Game/src/pong/Game.java</file>
         </group>
     </open-files>
