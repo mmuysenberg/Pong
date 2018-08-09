@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 public class Box implements Serializable {
 
     // generic size
@@ -44,9 +46,54 @@ public class Box implements Serializable {
     Point leftNameLocation;
     Point rightNameLocation;
     int[] successCount = new int[2];
+    boolean lost[] = { false, false };
+    // int highestScore = 0;
 
     public boolean isRunning() {
 	return running;
+    }
+
+    public void resetGame() {
+    }
+
+    public boolean isEnd() {
+	int highestScore = 0;
+	int maxScore = 5;
+	for (int score : successCount) {
+	    if (score > highestScore) {
+		highestScore = score;
+	    }
+	}
+	if (highestScore >= maxScore) {
+//	    successCount[0] = 0;
+//	    successCount[1] = 0;
+	    return true;
+	}
+	else
+	    return false;
+    }
+
+    public String whoWon() {
+	if (isEnd()) {
+	    if (clients.isEmpty())
+		return null;
+	    else if (clients.size() <= 1)
+		return clients.get(0);
+	    else {
+		int highestScore = 0;
+		for (int i = 0; i < clients.size(); i++) {
+		    if (successCount[i] >= highestScore)
+			highestScore = successCount[i];
+		}
+		for (int i = 0; i < clients.size(); i++) {
+		    if (successCount[i] == highestScore)
+			return clients.get(i);
+		}
+	    }
+	    return null;
+	} else {
+	    return null;
+	}
     }
 
     public Box() {
@@ -74,10 +121,12 @@ public class Box implements Serializable {
 
 	paddleLoc = new Point[2];
 	setGame(false);
-
     }
 
     void setGame(boolean startRunning) {
+	if(isEnd()) {
+	    successCount = new int[2];
+	}
 	int box_top = 0;
 	int box_bottom = box_height;
 	int box_left = 0;
@@ -182,7 +231,7 @@ public class Box implements Serializable {
 	    } else {
 		successCount[0]++; // In hole but bounces off left paddle
 		// In hole and missed by paddle
-//		 ballLoc.x = boxUpperLeft.x + ballRadius;
+		// ballLoc.x = boxUpperLeft.x + ballRadius;
 		ballVx *= -1;
 		whichPaddle = 0;
 		running = false;
@@ -197,10 +246,10 @@ public class Box implements Serializable {
 	{
 	    if (ballLoc.y + ballRadius + ballVy >= boxLowerRight.y) { // if ball y >= bottom y
 		ballVy *= -1;
-//		ballLoc.y = boxLowerRight.y - ballRadius;
-	    } else if (ballLoc.y - ballRadius +ballVy <= boxUpperRight.y) { // else if ball y <= top y
+		// ballLoc.y = boxLowerRight.y - ballRadius;
+	    } else if (ballLoc.y - ballRadius + ballVy <= boxUpperRight.y) { // else if ball y <= top y
 		ballVy *= -1;
-//		ballLoc.y = boxUpperRight.y - ballRadius;
+		// ballLoc.y = boxUpperRight.y - ballRadius;
 	    }
 	}
 	if (paddleHit) {
@@ -210,6 +259,10 @@ public class Box implements Serializable {
 	} else {
 	    ballLoc.x = ballLoc.x + ballVx;
 	    ballLoc.y = ballLoc.y + ballVy;
+	}
+
+	if (successCount[0] + successCount[1] > 20) {
+	    running = false;
 	}
 
     }

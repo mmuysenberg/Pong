@@ -13,6 +13,7 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
@@ -90,12 +91,30 @@ public class MyUserInterface extends JPanel implements GameNet_UserInterface {
 	    g.drawString("Click Mouse to start", 100, 100);
 	} else {
 
-	    if (!box.isRunning()) {
+	    ArrayList<String> names = box.getClientNames();
+            String str = "";
+	    if (!box.isRunning() && !box.isEnd()) {
 		g.setFont(new Font("Terminal", Font.BOLD, 25));
-		String str = "Click Mouse to play";
+		str = "Click Mouse to play";
 		g.drawString(str, (getWidth() - g.getFontMetrics().stringWidth(str)) / 2, 200);
 		g.setFont(new Font("Terminal", Font.BOLD, 35));
+	    } 
+//	    System.out.println(box.isEnd() + " " +box.highestScore);
+	    if (box.isEnd()) {
+		g.setFont(new Font("Terminal", Font.BOLD, 35));
+		FontMetrics largeFontMetrics = g.getFontMetrics();
+		str = myGamePlayer.getPlayerName(); 
+		if(str.equals(box.whoWon()))
+                     str += " Won!!";
+		else
+		    str += " Lost!!";
+		g.drawString(str, (getWidth() - g.getFontMetrics().stringWidth(str)) / 2, 200);
+		g.setFont(new Font("Terminal", Font.BOLD, 25));
+		str = "click to reset game.";
+		g.drawString(str, (getWidth() - g.getFontMetrics().stringWidth(str)) / 2, 200 + largeFontMetrics.getHeight());
+		g.setFont(new Font("Terminal", Font.BOLD, 35));
 	    }
+	    // when score too high
 
 	    Point bur = boardDimensions.toPixels(box.boxUpperRight);
 	    Point bul = boardDimensions.toPixels(box.boxUpperLeft);
@@ -140,7 +159,6 @@ public class MyUserInterface extends JPanel implements GameNet_UserInterface {
 	    Point leftNameLocation = boardDimensions.toPixels(box.leftNameLocation);
 	    int nameXMargin = 20;
 
-	    ArrayList<String> names = box.getClientNames();
 	    String leftName = "Unkown";
 	    String rightName = names.get(0);
 	    if(names.size() > 1) 
