@@ -87,8 +87,16 @@ public class MyUserInterface extends JPanel implements GameNet_UserInterface {
 	int pad = 10;
 	boardDimensions.setParms(insets.top, insets.left + pad, d.width - insets.left - insets.right - 2 * pad,
 		d.height - insets.top - insets.bottom - 2 * 0);
+	int lineWidth = 10;
+	int lineX = (d.width - lineWidth)/2;
+	int lineSeperators = 10;
+	int lineHeight = 20;
+		for(int i = lineSeperators ; i <= d.height; i+=lineSeperators + lineHeight) {
+			g.fillRect(lineX, i, lineWidth, lineHeight);
+		}
+	
 	if (box == null) {
-	    g.drawString("Click Mouse to start", 100, 100);
+
 	} else {
 
 	    ArrayList<String> names = box.getClientNames();
@@ -96,14 +104,18 @@ public class MyUserInterface extends JPanel implements GameNet_UserInterface {
 	    if (!box.isRunning() && !box.isEnd()) {
 		g.setFont(new Font("Terminal", Font.BOLD, 25));
 		str = "Click Mouse to play";
+		g.setColor(Color.black);
+		g.fillRect((getWidth() - g.getFontMetrics().stringWidth(str)) / 2, 200 - g.getFontMetrics().getHeight(), g.getFontMetrics().stringWidth(str), g.getFontMetrics().getHeight() + 20);
+		g.setColor(Color.WHITE);
 		g.drawString(str, (getWidth() - g.getFontMetrics().stringWidth(str)) / 2, 200);
 		g.setFont(new Font("Terminal", Font.BOLD, 35));
-	    } 
-//	    System.out.println(box.isEnd() + " " +box.highestScore);
-	    if (box.isEnd()) {
+	    } else if (box.isEnd()) {
 		g.setFont(new Font("Terminal", Font.BOLD, 35));
 		FontMetrics largeFontMetrics = g.getFontMetrics();
-		str = myGamePlayer.getPlayerName(); 
+		str = myGamePlayer.getPlayerName();
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, d.width, d.height);
+		g.setColor(Color.WHITE);
 		if(str.equals(box.whoWon()))
                      str += " Won!!";
 		else
@@ -113,6 +125,8 @@ public class MyUserInterface extends JPanel implements GameNet_UserInterface {
 		str = "click to reset game.";
 		g.drawString(str, (getWidth() - g.getFontMetrics().stringWidth(str)) / 2, 200 + largeFontMetrics.getHeight());
 		g.setFont(new Font("Terminal", Font.BOLD, 35));
+	    } else {
+
 	    }
 	    // when score too high
 
