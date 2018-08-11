@@ -48,7 +48,10 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         	clients.remove(myGameInput.name);
         	break;
         case MyGameInput.MOUSE_PRESSED:
-        	 box.setGame(true);
+            	if(!box.isRunning()) {
+            	    if(getMyIndex(myGameInput.name) == box.whichPaddle) 
+                            box.setGame(true);
+            	}
         	break;
         case MyGameInput.MOUSE_MOVED: 
             int clientIndex = getMyIndex(myGameInput.name);
